@@ -129,61 +129,68 @@ class Album extends Component {
              <div id="release-info">{this.state.album.releaseInfo}</div>
            </div>
          </section>
-         <table id="song-list">
-           <colgroup>
-             <col id="song-number-column" />
-             <col id="song-title-column" />
-             <col id="song-duration-column" />
-           </colgroup>
-           <tbody>
-             <tr>
-                <th className="song-table-header">Number</th>
-                <th className="song-table-header">Title</th>
-                <th className="song-table-header">Duration</th>
-             </tr>
 
-             {
-               this.state.album.songs.map( ( song, index ) =>
-                 <tr className="song" key={index}
-                   onClick={() => this.handleSongClick(song)}
+         <section id="song-list-table">
+           <table id="song-list">
+             <colgroup>
+               <col id="song-number-column" />
+               <col id="song-title-column" />
+               <col id="song-duration-column" />
+             </colgroup>
+             <tbody>
+               <tr>
+                  <th className="song-table-header">Number</th>
+                  <th className="song-table-header">Title</th>
+                  <th className="song-table-header">Duration</th>
+               </tr>
+               {
+                 this.state.album.songs.map( ( song, index ) =>
+                   <tr className="song" key={index}
+                     onClick={() => this.handleSongClick(song)}
 
-                     onMouseEnter={() => this.handleMouseEnter(index)}
-                     onMouseLeave={() => this.handleMouseLeave(index)}
-                    >
-                   <td className="song-table-details">
-                     <button key={index} id="icon">
-                       {
-                         (this.state.currentSong === song) ?
-                         <span className={
-                             (this.state.isPlaying) ? "ion-md-pause" : "ion-md-play" }>
-                         </span> :
-                         (this.state.isHovered === index) ?
-                         <span className="ion-md-play"> </span> :
-                         <span className="song-number"> {index+1} </span>
-                       }
-                     </button>
-                   </td>
-                   <td className="song-table-details"> {song.title} </td>
-                   <td className="song-table-details"> {song.duration} </td>
-                 </tr>
-               )}
+                       onMouseEnter={() => this.handleMouseEnter(index)}
+                       onMouseLeave={() => this.handleMouseLeave(index)}
+                      >
+                     <td className="song-table-details">
+                       <button
+                         key={index}
+                         id="icon"
+                        >
+                         {
+                           (this.state.currentSong === song) ?
+                           <span className={
+                               (this.state.isPlaying) ? "ion-md-pause" : "ion-md-play" }>
+                           </span> :
+                           (this.state.isHovered === index) ?
+                           <span className="ion-md-play"> </span> :
+                           <span className="song-number"> {index+1} </span>
+                         }
+                       </button>
+                     </td>
+                     <td className="song-table-details"> {song.title} </td>
+                     <td className="song-table-details"> {song.duration} </td>
+                   </tr>
+                 )}
+             </tbody>
+           </table>
+         </section>
 
-           </tbody>
-         </table>
+         <section id="player-bar">
+           <PlayerBar
+             isPlaying={this.state.isPlaying}
+             currentSong={this.state.currentSong}
+             currentTime={this.audioElement.currentTime}
+             duration={this.audioElement.duration}
+             volume={this.state.volume}
+             handleSongClick={ () => this.handleSongClick(this.state.currentSong)}
+             handlePrevClick={ () => this.handlePrevClick()}
+             handleNextClick={ () => this.handleNextClick()}
+             handleTimeChange={ (e) => this.handleTimeChange(e)}
+             handleVolumeChange={ (e) => this.handleVolumeChange(e)}
+             formatTime={ (time) => this.formatTime(time)}
+            />
+         </section>
 
-         <PlayerBar
-           isPlaying={this.state.isPlaying}
-           currentSong={this.state.currentSong}
-           currentTime={this.audioElement.currentTime}
-           duration={this.audioElement.duration}
-           volume={this.state.volume}
-           handleSongClick={ () => this.handleSongClick(this.state.currentSong)}
-           handlePrevClick={ () => this.handlePrevClick()}
-           handleNextClick={ () => this.handleNextClick()}
-           handleTimeChange={ (e) => this.handleTimeChange(e)}
-           handleVolumeChange={ (e) => this.handleVolumeChange(e)}
-           formatTime={ (time) => this.formatTime(time)}
-           />
 
       </section>
     )

@@ -6,14 +6,17 @@ import Library from './components/Library';
 import Album from './components/Album';
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">
         <header>
-          <nav>
-            <Link to='/'>Landing</Link>
-            <Link to='/library'>Library</Link>
-          </nav>
+          <section>
+            <nav>
+              <Link to='/'>Landing</Link>
+              <Link to='/library'>Library</Link>
+            </nav>
+          </section>
         </header>
         <main>
           <Route exact path="/" component={Landing} />

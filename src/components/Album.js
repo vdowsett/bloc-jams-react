@@ -111,10 +111,24 @@ class Album extends Component {
     this.setState({ volume: this.audioElement.volume });
     }
 
+    handleVolumeDecreaseClick(e) {
+      const newVolume = this.audioElement.volume -= 0.1;
+      const setVolume = Math.max( 0, newVolume );
+      this.setState({ volume: setVolume });
+      console.log(this.state.volume);
+    }
+
+    handleVolumeIncreaseClick(e) {
+      const newVolume = this.audioElement.volume += 0.1;
+      const setVolume = Math.min( 1, newVolume );
+      this.setState({ volume: setVolume });
+      console.log(this.state.volume);
+    }
+
     formatTime(time) {
       let minutes = parseInt(time / 60);
       let seconds = parseInt(time % 60);
-      const formatTime = (minutes + ":" + seconds);
+      const formatTime = (minutes + ":" + (seconds > 9 ? "" + seconds: "0" + seconds));
       return formatTime;
     }
 
@@ -129,68 +143,63 @@ class Album extends Component {
              <div id="release-info">{this.state.album.releaseInfo}</div>
            </div>
          </section>
+         <table id="song-list">
+           <colgroup>
+             <col id="song-number-column" />
+             <col id="song-title-column" />
+             <col id="song-duration-column" />
+           </colgroup>
+           <tbody>
+             <tr>
+                <th className="song-table-header">Number</th>
+                <th className="song-table-header">Title</th>
+                <th className="song-table-header">Duration</th>
+             </tr>
 
-         <section id="song-list-table">
-           <table id="song-list">
-             <colgroup>
-               <col id="song-number-column" />
-               <col id="song-title-column" />
-               <col id="song-duration-column" />
-             </colgroup>
-             <tbody>
-               <tr>
-                  <th className="song-table-header">Number</th>
-                  <th className="song-table-header">Title</th>
-                  <th className="song-table-header">Duration</th>
-               </tr>
-               {
-                 this.state.album.songs.map( ( song, index ) =>
-                   <tr className="song" key={index}
-                     onClick={() => this.handleSongClick(song)}
+             {
+               this.state.album.songs.map( ( song, index ) =>
+                 <tr className="song" key={index}
+                   onClick={() => this.handleSongClick(song)}
 
-                       onMouseEnter={() => this.handleMouseEnter(index)}
-                       onMouseLeave={() => this.handleMouseLeave(index)}
-                      >
-                     <td className="song-table-details">
-                       <button
-                         key={index}
-                         id="icon"
-                        >
-                         {
-                           (this.state.currentSong === song) ?
-                           <span className={
-                               (this.state.isPlaying) ? "ion-md-pause" : "ion-md-play" }>
-                           </span> :
-                           (this.state.isHovered === index) ?
-                           <span className="ion-md-play"> </span> :
-                           <span className="song-number"> {index+1} </span>
-                         }
-                       </button>
-                     </td>
-                     <td className="song-table-details"> {song.title} </td>
-                     <td className="song-table-details"> {song.duration} </td>
-                   </tr>
-                 )}
-             </tbody>
-           </table>
-         </section>
+                     onMouseEnter={() => this.handleMouseEnter(index)}
+                     onMouseLeave={() => this.handleMouseLeave(index)}
+                    >
+                   <td className="song-table-details">
+                     <button key={index} id="icon">
+                       {
+                         (this.state.currentSong === song) ?
+                         <span className={
+                             (this.state.isPlaying) ? "ion-md-pause" : "ion-md-play" }>
+                         </span> :
+                         (this.state.isHovered === index) ?
+                         <span className="ion-md-play"> </span> :
+                         <span className="song-number"> {index+1} </span>
+                       }
+                     </button>
+                   </td>
+                   <td className="song-table-details"> {song.title} </td>
+                   <td className="song-table-details"> { this.formatTime( song.duration ) } </td>
+                 </tr>
+               )}
 
-         <section id="player-bar">
-           <PlayerBar
-             isPlaying={this.state.isPlaying}
-             currentSong={this.state.currentSong}
-             currentTime={this.audioElement.currentTime}
-             duration={this.audioElement.duration}
-             volume={this.state.volume}
-             handleSongClick={ () => this.handleSongClick(this.state.currentSong)}
-             handlePrevClick={ () => this.handlePrevClick()}
-             handleNextClick={ () => this.handleNextClick()}
-             handleTimeChange={ (e) => this.handleTimeChange(e)}
-             handleVolumeChange={ (e) => this.handleVolumeChange(e)}
-             formatTime={ (time) => this.formatTime(time)}
-            />
-         </section>
+           </tbody>
+         </table>
 
+         <PlayerBar
+           isPlaying={this.state.isPlaying}
+           currentSong={this.state.currentSong}
+           currentTime={this.audioElement.currentTime}
+           duration={this.audioElement.duration}
+           volume={this.state.volume}
+           handleSongClick={ () => this.handleSongClick(this.state.currentSong)}
+           handlePrevClick={ () => this.handlePrevClick()}
+           handleNextClick={ () => this.handleNextClick()}
+           handleTimeChange={ (e) => this.handleTimeChange(e)}
+           handleVolumeChange={ (e) => this.handleVolumeChange(e)}
+           handleVolumeDecreaseClick={ (e) => this.handleVolumeDecreaseClick(e)}
+           handleVolumeIncreaseClick={ (e) => this.handleVolumeIncreaseClick(e)}
+           formatTime={ (time) => this.formatTime(time)}
+           />
 
       </section>
     )

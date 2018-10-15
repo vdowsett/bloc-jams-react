@@ -1,37 +1,40 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
+import SvgIcon from '@material-ui/core/SvgIcon';
+
 
 class PlayerBar extends Component {
   render () {
     return (
       <section className="player-bar">
-        <section id="buttons">
-           <button
+        <section id="Buttons">
+           < Button variant="contained" color="primary"
              id="previous"
              onClick={ this.props.handlePrevClick}
              >
              <span className="ion-md-skip-backward"></span>
-           </button>
+           </Button>
 
-           <button
+           < Button variant="contained" color="primary"
              id="play-pause"
              onClick={ this.props.handleSongClick}
              >
-             <span className={ this.props.isPlaying ? 'ion-md-pause' : 'ion-md-play' }></span>
-           </button>
+             <i className="material-icons"> { this.props.isPlaying ? 'pause' : 'play_arrow' } </i>
+           </Button>
 
-           <button
+           < Button variant="contained" color="primary"
              id="next"
              onClick={ this.props.handleNextClick}
              >
              <span className="ion-md-skip-forward"></span>
-           </button>
+           </Button>
          </section>
 
          <section id="time-control">
            <div className="current-time" > { this.props.formatTime(this.props.currentTime) } </div>
            <input
              type="range"
-             className="seek-bar mdl-slider mdl-js-slider"
+             className="seek-bar"
              value={ ( this.props.currentTime / this.props.duration ) || 0 }
              max="1"
              min="0"
@@ -43,15 +46,15 @@ class PlayerBar extends Component {
 
          <section id="volume-control">
 
-           <button
+           < Button variant="contained" color="primary"
              id="decrease"
              onClick={ this.props.handleVolumeDecreaseClick }>
              <span className="icon ion-md-volume-low" ></span>
-           </button>
+           </Button>
 
            <input
              type="range"
-             className="seek-bar mdl-slider mdl-js-slider"
+             className="seek-bar"
              value={ this.props.volume }
              max="1"
              min="0"
@@ -59,11 +62,11 @@ class PlayerBar extends Component {
              onChange={ this.props.handleVolumeChange }
              />
 
-           <button
+           < Button variant="contained" color="primary"
              id="increase"
              onClick={ this.props.handleVolumeIncreaseClick }>
              <span className="icon ion-md-volume-high" ></span>
-           </button>
+           </Button>
 
          </section>
       </section>

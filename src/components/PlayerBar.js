@@ -1,36 +1,48 @@
-import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import SvgIcon from '@material-ui/core/SvgIcon';
+//React Components:
 
+import React, { Component } from 'react';
+
+//Material Design Components:
+import {
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+  Button,
+  IconButton
+} from '@material-ui/core';
 
 class PlayerBar extends Component {
   render () {
     return (
       <section className="player-bar">
-        <section id="Buttons">
-           < Button variant="contained" color="primary"
+
+        <CardActions id="Buttons">
+           <IconButton
              id="previous"
-             onClick={ this.props.handlePrevClick}
+             onClick={ this.props.handlePrevClick }
              >
              <span className="ion-md-skip-backward"></span>
-           </Button>
+           </IconButton>
 
-           < Button variant="contained" color="primary"
+           <Button variant="fab"
              id="play-pause"
              onClick={ this.props.handleSongClick}
              >
              <i className="material-icons"> { this.props.isPlaying ? 'pause' : 'play_arrow' } </i>
            </Button>
 
-           < Button variant="contained" color="primary"
+           <IconButton
              id="next"
              onClick={ this.props.handleNextClick}
              >
              <span className="ion-md-skip-forward"></span>
-           </Button>
-         </section>
+           </IconButton>
+         </CardActions>
 
-         <section id="time-control">
+         <CardActions id="time-control">
            <div className="current-time" > { this.props.formatTime(this.props.currentTime) } </div>
            <input
              type="range"
@@ -42,15 +54,15 @@ class PlayerBar extends Component {
              onChange={ this.props.handleTimeChange }
              />
            <div className="total-time"> { this.props.formatTime(this.props.duration) } </div>
-         </section>
+         </CardActions>
 
-         <section id="volume-control">
+         <CardActions id="volume-control">
 
-           < Button variant="contained" color="primary"
+           <IconButton
              id="decrease"
              onClick={ this.props.handleVolumeDecreaseClick }>
              <span className="icon ion-md-volume-low" ></span>
-           </Button>
+           </IconButton>
 
            <input
              type="range"
@@ -62,13 +74,13 @@ class PlayerBar extends Component {
              onChange={ this.props.handleVolumeChange }
              />
 
-           < Button variant="contained" color="primary"
+           <IconButton
              id="increase"
              onClick={ this.props.handleVolumeIncreaseClick }>
              <span className="icon ion-md-volume-high" ></span>
-           </Button>
+           </IconButton>
 
-         </section>
+         </CardActions>
       </section>
     );
   }

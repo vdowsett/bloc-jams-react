@@ -1,7 +1,7 @@
 //React Components:
 
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Landing from './Landing';
 import Library from './Library';
 import Album from './Album';
@@ -37,7 +37,7 @@ class SimpleMenu extends React.Component {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          <span className="ion-md-menu"></span>
+          <i className="material-icons">menu</i>
         </Button>
         <Menu
           id="simple-menu"

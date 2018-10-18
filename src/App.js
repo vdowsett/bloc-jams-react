@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet'
 import './App.css';
 import Landing from './components/Landing';
 import Library from './components/Library';
@@ -12,10 +11,12 @@ import theme from './components/CustomTheme';
 
 //Material Design Components:
 
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import {
+  MuiThemeProvider,
+  CssBaseline,
+  Paper,
+  Grid,
+} from '@material-ui/core';
 
 class App extends Component {
 
@@ -25,9 +26,10 @@ class App extends Component {
       <CssBaseline />
       <MuiThemeProvider theme={theme}>
 
-        <Grid className="App" container wrap="nowrap" spacing={24} grid="6" justify="center">
+        <Grid className="App" container wrap="nowrap" spacing={24} justify="center">
 
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={9}>
+
             <TopBar position="static" color="default" />
 
             <main>

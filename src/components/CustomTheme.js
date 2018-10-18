@@ -6,26 +6,35 @@ import pink from '@material-ui/core/colors/pink';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#00BCD4', //cyan
-      light: '#B2EBF2',
-      dark: '#00838F',
-      contrastText: '#FCE4EC',
+      main: '#2B86C5', //blue
     },
 
     secondary: {
-      main: '#EC407A', //pink
-      light: '#F8BBD0',
-      dark: '#AD1457',
-      contrastText: '#E1F5FE',
-    }
+      main: '#FF3CAC', //pink
+    },
   },
 
   overrides: {
+    MuiCard: { // Name of the component ⚛️ / style sheet
+      root: {
+        // Some CSS
+        backgroundImage: 'linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)',
+        color: 'GREY',
+        padding: '30px',
+        borderRadius: 0,
+      },
+    },
+
     MuiTypography: { // Name of the component ⚛️ / style sheet
       root: {
         // Some CSS
       },
       h3: {
+        // Some CSS
+        color: "white",
+        textAlign: 'left',
+      },
+      h4: {
         // Some CSS
         color: "white",
         textAlign: 'left',
@@ -41,65 +50,68 @@ const theme = createMuiTheme({
         textAlign: 'left',
       },
     },
+
     MuiTable: { // Name of the component ⚛️ / style sheet
       root: {
         // Some CSS
         background: '#ffffff',
-        borderRadius: 3,
-        border: 0,
-        color: 'black',
-        padding: '30px',
-        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        borderRadius: 6,
       },
     },
-    MuiCard: { // Name of the component ⚛️ / style sheet
+
+    MuiTableCell: { // Name of the component ⚛️ / style sheet
       root: {
         // Some CSS
-        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        borderRadius: 3,
-        border: 0,
-        color: 'white',
-        padding: '30px',
-        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        padding:'6px 12px',
+      },
+      head: {
+        // Some CSS
+        fontSize:'18px',
       },
     },
+
     MuiButton: {
-      root: {
-        backgroundColor: 'purple',
-        '&:hover': {
-          backgroundColor: 'purple'
-        },
-      },
-      contained: {
-        backgroundColor: 'purple',
-        '&:hover': {
-          backgroundColor: 'purple'
-        },
-      },
       fab: {
-        width: '65px',
-        height: '65px',
-        backgroundColor: 'white',
-        border: '1px solid white',
-        boxShadow: '0',
+        border: '1px solid #f9f9f9',
+        color: '#f9f9f9',
+        backgroundColor: 'transparent',
+        margin: '0 15px',
         '&:hover': {
-          backgroundColor: 'purple'
-        },
-      },
-    },
-    MuiIconButton: {
-      root: {
-        width: '45px',
-        height: '45px',
-        border: '1px solid white',
-        color: 'white',
-        fontSize: '0.85em',
-        '&:hover': {
-          backgroundColor: 'purple'
+          border: '1px solid #FF3CAC',
+          color: '#f9f9f9',
+          backgroundColor: '#FF3CAC',
         },
       },
     },
 
+    MuiIconButton: {
+      root: {
+        width: '25px',
+        height: '25px',
+        border: '1px solid grey',
+        color: 'grey',
+        backgroundColor: 'transparent',
+        fontSize: '15px',
+        '&:hover': {
+          border: '1px solid #FF3CAC',
+          color: '#f9f9f9',
+          backgroundColor: '#FF3CAC',
+        },
+      },
+    },
+
+    MuiSlider: {
+      container: {
+        root: '80%',
+        },
+      track: {
+        color: '#f9f9f9',
+        backgroundColor: '#f9f9f9',
+        },
+      thumb: {
+        backgroundColor: '#f9f9f9',
+        },
+      },
   },
 
 });

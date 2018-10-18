@@ -9,18 +9,32 @@ import {
   MuiThemeProvider,
   createMuiTheme,
   Table,
-  TableBody,
-  TableCell,
   TableHead,
+  TableBody,
   TableRow,
+  TableCell,
   Paper,
   Card,
   CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
-  Typography
+  Typography,
+  Button,
 } from '@material-ui/core';
+
+const tableButton = {
+  background: 'transparent',
+  border: '1px solid grey',
+  borderRadius: '50%',
+  color: 'grey',
+  height: '35px',
+  width: '35px',
+  minWidth: '35px',
+  minHeight: '35px',
+  padding: 0,
+  boxShadow: 0,
+};
 
 class Album extends Component {
   constructor(props) {
@@ -38,7 +52,7 @@ class Album extends Component {
       duration: album.songs[0].duration,
       volume: 0.5,
       isPlaying: false,
-      isHovered: false
+      isHovered: false,
     };
 
     this.audioElement = document.createElement('audio');
@@ -133,16 +147,12 @@ class Album extends Component {
     }
 
     handleVolumeDecreaseClick(e) {
-      const newVolume = this.audioElement.volume -= 0.1;
-      const setVolume = Math.max( 0, newVolume );
-      this.setState({ volume: setVolume });
+      { (this.state.volume >= 0.1) ? this.setState({ volume: this.audioElement.volume -= 0.1 }) : this.setState({ volume: 0 }) }
       console.log(this.state.volume);
     }
 
     handleVolumeIncreaseClick(e) {
-      const newVolume = this.audioElement.volume += 0.1;
-      const setVolume = Math.min( 1, newVolume );
-      this.setState({ volume: setVolume });
+      { (this.state.volume <= 0.9) ? this.setState({ volume: this.audioElement.volume += 0.1 }) : this.setState({ volume: 1 }) }
       console.log(this.state.volume);
     }
 
@@ -201,9 +211,9 @@ class Album extends Component {
              <CardContent className="songListCard">
                <Table id="song-list" margin="20px">
                  <colgroup>
-                   <col id="song-number-column" />
-                   <col id="song-title-column" />
-                   <col id="song-duration-column" />
+                   <col id="song-number-column" width="5%"/>
+                   <col id="song-title-column" width="85%" />
+                   <col id="song-duration-column" width="10%"/>
                  </colgroup>
                    <TableHead>
                      <TableRow>
@@ -218,8 +228,11 @@ class Album extends Component {
                        onClick={() => this.handleSongClick(song)}
                        onMouseEnter={() => this.handleMouseEnter(index)}
                        onMouseLeave={() => this.handleMouseLeave(index)}>
-                       <TableCell className="song-table-details">
-                         <button key={index} id="icon">
+                       <TableCell className="song-table-details" >
+                         <Button
+                           key={index}
+                           id="icon"
+                           style={tableButton}>
                            {
                              (this.state.currentSong === song) ?
                              <span className={
@@ -229,10 +242,10 @@ class Album extends Component {
                              <span className="ion-md-play"> </span> :
                              <span className="song-number"> {index+1} </span>
                            }
-                         </button>
+                         </Button>
                        </TableCell>
-                       <TableCell className="song-table-details"> {song.title} </TableCell>
-                       <TableCell className="song-table-details"> { this.formatTime( song.duration ) } </TableCell>
+                       <TableCell className="song-table-details" > {song.title} </TableCell>
+                       <TableCell className="song-table-details" > { this.formatTime( song.duration ) } </TableCell>
                      </TableRow>
                      )}
                    </TableBody>

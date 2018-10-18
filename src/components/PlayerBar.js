@@ -4,84 +4,115 @@ import React, { Component } from 'react';
 
 //Material Design Components:
 import {
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
   Typography,
   Button,
-  IconButton
+  Grid,
 } from '@material-ui/core';
 
+import Slider from '@material-ui/lab/Slider';
+
+
+const currentTime = {
+  float: 'left',
+  color: '#ffffff',
+  borderRadius: '45%',
+  padding: '12px 12px 6px 0',
+  lineHeight: '1em',
+  margin: '0 15px',
+};
+
+const totalTime = {
+    float: 'right',
+    color: '#ffffff',
+    borderRadius: '45%',
+    padding: '12px 0 6px 12px',
+    lineHeight: '1em',
+    margin: '0 15px',
+};
+
+const volumeUp = {
+    float: 'right',
+    margin: '15px',
+};
+
+const volumeDown = {
+    float: 'left',
+    margin: '15px',
+};
+
 class PlayerBar extends Component {
+
   render () {
     return (
-      <section className="player-bar">
+      <div className="playerBarContainer">
+        <Grid container spacing={32}>
+          <Grid item xs={12}>
+            <Button variant="fab" mini
+              id="previous"
+              onClick={ this.props.handlePrevClick }
+              >
+              <i className="material-icons">skip_previous</i>
+            </Button>
 
-        <CardActions id="Buttons">
-           <IconButton
-             id="previous"
-             onClick={ this.props.handlePrevClick }
-             >
-             <span className="ion-md-skip-backward"></span>
-           </IconButton>
+            <Button variant="fab"
+              id="playPause"
+              onClick={ this.props.handleSongClick}
+              >
+              <i className="material-icons"> { this.props.isPlaying ? 'pause' : 'play_arrow' } </i>
+            </Button>
 
-           <Button variant="fab"
-             id="play-pause"
-             onClick={ this.props.handleSongClick}
-             >
-             <i className="material-icons"> { this.props.isPlaying ? 'pause' : 'play_arrow' } </i>
-           </Button>
+            <Button variant="fab" mini
+              id="next"
+              onClick={ this.props.handleNextClick}
+              >
+              <i className="material-icons">skip_next</i>
+            </Button>
+          </Grid>
 
-           <IconButton
-             id="next"
-             onClick={ this.props.handleNextClick}
-             >
-             <span className="ion-md-skip-forward"></span>
-           </IconButton>
-         </CardActions>
+          <Grid item xs={12}>
+            <Slider
+              type="range"
+              className="seek-bar"
+              value={ ( this.props.currentTime / this.props.duration ) || 0 }
+              max="1"
+              min="0"
+              step="0.01"
+              onChange={ this.props.handleTimeChange }
+              />
+            <span id="currentTime" style={currentTime}> { this.props.formatTime(this.props.currentTime) } </span>
+            <span id="totalTime" style={totalTime}> { this.props.formatTime(this.props.duration) } </span>
+          </Grid>
 
-         <CardActions id="time-control">
-           <div className="current-time" > { this.props.formatTime(this.props.currentTime) } </div>
-           <input
-             type="range"
-             className="seek-bar"
-             value={ ( this.props.currentTime / this.props.duration ) || 0 }
-             max="1"
-             min="0"
-             step="0.01"
-             onChange={ this.props.handleTimeChange }
-             />
-           <div className="total-time"> { this.props.formatTime(this.props.duration) } </div>
-         </CardActions>
+          <Grid item xs={12}>
 
-         <CardActions id="volume-control">
+            <Slider
+              type="range"
+              className="seek-bar"
+              value={ this.props.volume }
+              max="1"
+              min="0"
+              step="0.1"
+              onChange={ this.props.handleVolumeChange }
+              />
 
-           <IconButton
-             id="decrease"
-             onClick={ this.props.handleVolumeDecreaseClick }>
-             <span className="icon ion-md-volume-low" ></span>
-           </IconButton>
+            <Button variant="fab" mini
+              id="decrease"
+              onClick={ this.props.handleVolumeDecreaseClick }
+              style={volumeDown}
+              >
+              <i className="material-icons">volume_down</i>
+            </Button>
 
-           <input
-             type="range"
-             className="seek-bar"
-             value={ this.props.volume }
-             max="1"
-             min="0"
-             step="0.1"
-             onChange={ this.props.handleVolumeChange }
-             />
-
-           <IconButton
-             id="increase"
-             onClick={ this.props.handleVolumeIncreaseClick }>
-             <span className="icon ion-md-volume-high" ></span>
-           </IconButton>
-
-         </CardActions>
-      </section>
+            <Button variant="fab" mini
+              id="increase"
+              onClick={ this.props.handleVolumeIncreaseClick }
+              style={volumeUp}
+              >
+              <i className="material-icons">volume_up</i>
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
     );
   }
 }
